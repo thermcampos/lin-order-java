@@ -11,6 +11,13 @@ tasks:
     desc: Build a binary-native image
     cmd: cd javalin && ./mvnw -Pnative package
 
+  run-dev:
+    desc: Run the app in dev mode
+    cmd: |
+      cd javalin && \
+      ./mvnw clean package -DskipTests && \
+      java -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
+
   run-native-tracing:
     desc: Buidl and run with native agent to trace reflections
     cmds:

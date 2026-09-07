@@ -10,6 +10,60 @@
       "type": "char[]"
     },
     {
+      "type": "com.sun.crypto.provider.HmacCore$HmacSHA256",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.PBKDF2Core$HmacSHA1",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.PBKDF2Core$HmacSHA224",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.PBKDF2Core$HmacSHA256",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.PBKDF2Core$HmacSHA384",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.PBKDF2Core$HmacSHA512",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "com.sun.management.GarbageCollectorMXBean"
     },
     {
@@ -156,6 +210,137 @@
       "type": "com.sun.management.internal.VirtualThreadSchedulerImpls$VirtualThreadSchedulerImpl"
     },
     {
+      "type": "com.zaxxer.hikari.HikariConfig",
+      "fields": [
+        {
+          "name": "catalog"
+        },
+        {
+          "name": "connectionInitSql"
+        },
+        {
+          "name": "connectionTestQuery"
+        },
+        {
+          "name": "connectionTimeout"
+        },
+        {
+          "name": "credentials"
+        },
+        {
+          "name": "credentialsProvider"
+        },
+        {
+          "name": "credentialsProviderClassName"
+        },
+        {
+          "name": "dataSource"
+        },
+        {
+          "name": "dataSourceClassName"
+        },
+        {
+          "name": "dataSourceJndiName"
+        },
+        {
+          "name": "dataSourceProperties"
+        },
+        {
+          "name": "driverClassName"
+        },
+        {
+          "name": "exceptionOverride"
+        },
+        {
+          "name": "exceptionOverrideClassName"
+        },
+        {
+          "name": "healthCheckProperties"
+        },
+        {
+          "name": "healthCheckRegistry"
+        },
+        {
+          "name": "idleTimeout"
+        },
+        {
+          "name": "initializationFailTimeout"
+        },
+        {
+          "name": "isAllowPoolSuspension"
+        },
+        {
+          "name": "isAutoCommit"
+        },
+        {
+          "name": "isIsolateInternalQueries"
+        },
+        {
+          "name": "isReadOnly"
+        },
+        {
+          "name": "isRegisterMbeans"
+        },
+        {
+          "name": "jdbcUrl"
+        },
+        {
+          "name": "keepaliveTime"
+        },
+        {
+          "name": "leakDetectionThreshold"
+        },
+        {
+          "name": "maxLifetime"
+        },
+        {
+          "name": "maxPoolSize"
+        },
+        {
+          "name": "metricRegistry"
+        },
+        {
+          "name": "metricsTrackerFactory"
+        },
+        {
+          "name": "minIdle"
+        },
+        {
+          "name": "poolName"
+        },
+        {
+          "name": "scheduledExecutor"
+        },
+        {
+          "name": "schema"
+        },
+        {
+          "name": "sealed"
+        },
+        {
+          "name": "threadFactory"
+        },
+        {
+          "name": "transactionIsolationName"
+        },
+        {
+          "name": "unitTest"
+        },
+        {
+          "name": "validationTimeout"
+        }
+      ]
+    },
+    {
+      "type": "com.zaxxer.hikari.pool.PoolBase"
+    },
+    {
+      "type": "com.zaxxer.hikari.pool.PoolEntry"
+    },
+    {
+      "type": "com.zaxxer.hikari.util.ConcurrentBag$IConcurrentBagEntry[]"
+    },
+    {
       "type": "double[]"
     },
     {
@@ -279,6 +464,10 @@
       "type": "java.lang.Thread",
       "methods": [
         {
+          "name": "isVirtual",
+          "parameterTypes": []
+        },
+        {
           "name": "ofVirtual",
           "parameterTypes": []
         }
@@ -351,8 +540,17 @@
           "parameterTypes": [
             "java.security.PrivilegedAction"
           ]
+        },
+        {
+          "name": "doPrivileged",
+          "parameterTypes": [
+            "java.security.PrivilegedExceptionAction"
+          ]
         }
       ]
+    },
+    {
+      "type": "java.sql.Statement[]"
     },
     {
       "type": "java.util.Arrays",
@@ -377,6 +575,10 @@
           "parameterTypes": [
             "java.util.concurrent.ThreadFactory"
           ]
+        },
+        {
+          "name": "newVirtualThreadPerTaskExecutor",
+          "parameterTypes": []
         }
       ]
     },
@@ -444,6 +646,9 @@
       "type": "jdk.management.jfr.SettingDescriptorInfo"
     },
     {
+      "type": "kotlin.SafePublicationLazyImpl"
+    },
+    {
       "type": "long[]"
     },
     {
@@ -485,6 +690,23 @@
       ]
     },
     {
+      "type": "org.eclipse.jetty.util.Utf8StringBuilder",
+      "methods": [
+        {
+          "name": "errorActionIgnore",
+          "parameterTypes": []
+        },
+        {
+          "name": "errorActionReplace",
+          "parameterTypes": []
+        },
+        {
+          "name": "errorActionReport",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.eclipse.jetty.websocket.core.internal.FragmentExtension"
     },
     {
@@ -498,6 +720,15 @@
     },
     {
       "type": "org.eclipse.jetty.websocket.core.internal.ValidationExtension"
+    },
+    {
+      "type": "org.postgresql.Driver"
+    },
+    {
+      "type": "org.postgresql.core.QueryExecutorCloseAction"
+    },
+    {
+      "type": "org.postgresql.jdbc.PgStatement"
     },
     {
       "type": "org.slf4j.impl.StaticLoggerBinder"
@@ -590,6 +821,51 @@
       ]
     },
     {
+      "type": "sun.security.provider.SHA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA2$SHA224",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA2$SHA256",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA5$SHA384",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA5$SHA512",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "sun.text.resources.FormatData"
     },
     {
@@ -609,6 +885,16 @@
     },
     {
       "type": "sun.text.resources.cldr.FormatData_en_US"
+    },
+    {
+      "type": "sun.util.resources.cldr.CalendarData"
+    },
+    {
+      "type": {
+        "proxy": [
+          "java.sql.Connection"
+        ]
+      }
     }
   ],
   "resources": [
@@ -616,7 +902,16 @@
       "glob": "META-INF/maven/io.javalin/javalin/pom.properties"
     },
     {
+      "glob": "META-INF/services/java.net.spi.InetAddressResolverProvider"
+    },
+    {
+      "glob": "META-INF/services/java.net.spi.URLStreamHandlerProvider"
+    },
+    {
       "glob": "META-INF/services/java.nio.channels.spi.SelectorProvider"
+    },
+    {
+      "glob": "META-INF/services/java.sql.Driver"
     },
     {
       "glob": "META-INF/services/java.time.zone.ZoneRulesProvider"
@@ -655,7 +950,14 @@
       "glob": "org/eclipse/jetty/version/build.properties"
     },
     {
+      "glob": "org/postgresql/driverconfig.properties"
+    },
+    {
       "glob": "simplelogger.properties"
+    },
+    {
+      "module": "java.base",
+      "glob": "jdk/internal/icu/impl/data/icudt76b/nfkc.nrm"
     },
     {
       "module": "jdk.jfr",
