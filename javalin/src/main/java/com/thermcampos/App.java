@@ -4,7 +4,8 @@ import io.javalin.Javalin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thermcampos.health.HealthCheckHandler;
+import com.thermcampos.config.AppConfig;
+import com.thermcampos.routes.HealthRoutes;
 
 public class App {
 
@@ -13,12 +14,10 @@ public class App {
     public static void main( String[] args ) {
         logger.info("Starting app");
         Javalin.create(config -> {
-            config.startup.showJavalinBanner = true;
-            config.routes.get("/", ctx -> {
-                ctx.status(200);
-                ctx.result("Hello Ricardo");
-            });
-            config.routes.get("/health", HealthCheckHandler::getHealthHandler);
+            // Config
+            AppConfig.makeConfig(config);
+            // Routes
+            HealthRoutes.register(config);
         }).start(8080);
     }
 }

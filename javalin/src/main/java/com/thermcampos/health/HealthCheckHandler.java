@@ -6,9 +6,9 @@ import io.javalin.http.HttpStatus;
 
 public class HealthCheckHandler {
     
-    public static void getHealthHandler(Context ctx) {
+    public void getHealth(Context ctx) {
+        ctx.addHeader(ContentType.APPLICATION_JSON.name(), ContentType.APPLICATION_JSON.getMimeType());
         ctx.status(HttpStatus.OK);
-        ctx.addHeader("Content-Type", ContentType.APPLICATION_JSON.getMimeType());
         ctx.result("{\"status\":\"OK\"}");
     }
 }
