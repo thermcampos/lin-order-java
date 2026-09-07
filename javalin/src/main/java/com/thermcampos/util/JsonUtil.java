@@ -20,4 +20,8 @@ public class JsonUtil {
     json.append("}");
     return json.toString();
   }
+
+  public static String toString(Object obj) {
+    return obj.toString();
+  }
 }

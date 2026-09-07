@@ -17,10 +17,10 @@ public class HealthCheckHandler {
         stmt.execute("SELECT 1");
         ctx.addHeader(ContentType.APPLICATION_JSON.name(), ContentType.APPLICATION_JSON.getMimeType());
         ctx.status(HttpStatus.OK);
-        ctx.result(JsonUtil.toJson(Map.of("status", "UP")));
+        ctx.json(new HealthDto("UP"));
       } else {
         ctx.status(HttpStatus.SERVICE_UNAVAILABLE);
-        ctx.result(JsonUtil.toJson(Map.of("status", "DOWN")));
+        ctx.json(new HealthDto("DOWN"));
       }
     } catch (Exception e) {
       ctx.status(HttpStatus.SERVICE_UNAVAILABLE);
