@@ -1,4 +1,4 @@
-package com.thermcampos.util;
+package com.thermcampos.mapper;
 
 import java.util.Map;
 

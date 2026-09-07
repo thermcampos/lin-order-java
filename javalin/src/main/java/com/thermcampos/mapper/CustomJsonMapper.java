@@ -1,6 +1,5 @@
 package com.thermcampos.mapper;
 
-import com.thermcampos.util.JsonUtil;
 import io.javalin.json.JsonMapper;
 import java.lang.reflect.Type;
 

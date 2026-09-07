@@ -2,8 +2,7 @@ package com.thermcampos;
 
 import com.thermcampos.config.AppConfig;
 import com.thermcampos.config.DbConfig;
-import com.thermcampos.routes.HealthRoutes;
-import com.zaxxer.hikari.HikariDataSource;
+import com.thermcampos.health.HealthRoutes;
 import io.javalin.Javalin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +14,9 @@ public class App {
     public static void main( String[] args ) {
         logger.info("Starting app");
 
-        HikariDataSource dataSource = DbConfig.create();
+        var dataSource = DbConfig.create();
 
-        Javalin app = Javalin.create(config -> {
+        var app = Javalin.create(config -> {
             // Config
             AppConfig.makeConfig(config);
             // Db

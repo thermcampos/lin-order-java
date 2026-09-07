@@ -11,7 +11,7 @@ public class DbConfig {
   }
 
   public static HikariDataSource create() {
-    HikariConfig config = new HikariConfig();
+    var config = new HikariConfig();
     config.setJdbcUrl(env("DB_URL", "jdbc:postgresql://localhost:5432/order"));
     config.setUsername(env("DB_USER", "order"));
     config.setPassword(env("DB_PASSWORD", "order"));
@@ -21,7 +21,7 @@ public class DbConfig {
   }
 
   private static String env(String key, String fallback) {
-    String value = System.getenv(key);
+    var value = System.getenv(key);
     return (value == null || value.isBlank()) ? fallback : value;
   }
 }

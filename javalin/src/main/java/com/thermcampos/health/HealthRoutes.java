@@ -1,6 +1,5 @@
-package com.thermcampos.routes;
+package com.thermcampos.health;
 
-import com.thermcampos.health.HealthCheckHandler;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.config.JavalinConfig;
 

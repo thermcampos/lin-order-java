@@ -1,6 +1,6 @@
 package com.thermcampos.health;
 
-import com.thermcampos.util.JsonUtil;
+import com.thermcampos.mapper.JsonUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.http.ContentType;
 import io.javalin.http.Context;
