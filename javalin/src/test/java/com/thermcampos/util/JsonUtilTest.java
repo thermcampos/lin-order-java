@@ -13,6 +13,6 @@ public class JsonUtilTest {
     response.put("status", "OK");
     String json = JsonUtil.toJson(response);
     System.out.println(json);
-    Assertions.assertEquals("{\"status\":\"O\"}", json);
+    Assertions.assertEquals("{\"status\":\"OK\"}", json);
   }
 }
