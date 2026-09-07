@@ -1,8 +1,6 @@
 package com.thermcampos.health;
 
-import com.thermcampos.mapper.JsonUtil;
 import com.zaxxer.hikari.HikariDataSource;
-import io.javalin.http.ContentType;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import java.sql.Connection;
@@ -15,16 +13,12 @@ public class HealthCheckHandler {
     try (Connection conn = ds.getConnection(); Statement stmt = conn.createStatement()) {
       if (conn.isValid(3)) {
         stmt.execute("SELECT 1");
-        ctx.addHeader(ContentType.APPLICATION_JSON.name(), ContentType.APPLICATION_JSON.getMimeType());
-        ctx.status(HttpStatus.OK);
-        ctx.json(new HealthDto("UP"));
+        ctx.status(HttpStatus.OK).json(new HealthDto("UP"));
       } else {
-        ctx.status(HttpStatus.SERVICE_UNAVAILABLE);
-        ctx.json(new HealthDto("DOWN"));
+        ctx.status(HttpStatus.SERVICE_UNAVAILABLE).json(new HealthDto("DOWN"));
       }
     } catch (Exception e) {
-      ctx.status(HttpStatus.SERVICE_UNAVAILABLE);
-      ctx.result(JsonUtil.toJson(Map.of("status", "DOWN", "error", e.getMessage())));
+      ctx.status(HttpStatus.SERVICE_UNAVAILABLE).json(Map.of("status", "DOWN", "error", e.getMessage()));
     }
   }
 }
