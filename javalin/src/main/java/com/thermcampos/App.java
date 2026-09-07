@@ -3,6 +3,8 @@ package com.thermcampos;
 import com.thermcampos.config.AppConfig;
 import com.thermcampos.config.DbConfig;
 import com.thermcampos.health.HealthRoutes;
+import com.thermcampos.product.ProductRoutes;
+
 import io.javalin.Javalin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ public class App {
             DbConfig.makeConfig(config, dataSource);
             // Routes
             HealthRoutes.register(config);
+            ProductRoutes.register(config);
         });
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
