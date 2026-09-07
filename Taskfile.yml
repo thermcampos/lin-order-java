@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+tasks:
+  build-jar:
+    desc: Build a fat JAR ready to run
+    cmd: cd javalin && ./mvnw clean package -DskipTests
+  
+  build-native:
+    desc: Build a binary-native image
+    cmd: cd javalin && ./mvnw -Pnative package
+
+  run-native-tracing:
+    desc: Buidl and run with native agent to trace reflections
+    cmds:
+      - |
+        cd javalin && \
+        ./mvnw clean package -DskipTests && \
+        java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image \
+        -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+  test:
+    desc: Run tests
+    cmd: cd javalin && ./mvnw test
