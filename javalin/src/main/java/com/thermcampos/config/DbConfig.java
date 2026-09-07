@@ -1,5 +1,6 @@
 package com.thermcampos.config;
 
+import com.thermcampos.db.DbKeys;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.config.JavalinConfig;
@@ -8,6 +9,7 @@ public class DbConfig {
 
   public static void makeConfig(JavalinConfig c, HikariDataSource ds) {
     c.events.serverStopping(ds::close);
+    c.appData(DbKeys.DATA_SOURCE, ds);
   }
 
   public static HikariDataSource create() {

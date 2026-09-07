@@ -22,7 +22,7 @@ public class App {
             // Db
             DbConfig.makeConfig(config, dataSource);
             // Routes
-            HealthRoutes.register(config, dataSource);
+            HealthRoutes.register(config);
         });
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
