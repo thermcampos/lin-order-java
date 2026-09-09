@@ -1,6 +1,6 @@
 package com.thermcampos.product;
 
-import com.thermcampos.db.DbKeys;
+import com.thermcampos.config.AppConfig;
 import java.util.List;
 import io.javalin.http.Context;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ public class ProductService {
   private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
   
   public List<Product> getProducts(Context ctx) {
-    var ds = ctx.appData(DbKeys.DATA_SOURCE);
+    var ds = ctx.appData(AppConfig.DATA_SOURCE);
     var repository = new ProductRepository(ds);
     List<Product> products = repository.findAllProducts();
     logger.info("Found {} products in the database", products.size());

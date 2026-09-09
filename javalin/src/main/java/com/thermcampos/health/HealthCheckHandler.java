@@ -1,6 +1,6 @@
 package com.thermcampos.health;
 
-import com.thermcampos.db.DbKeys;
+import com.thermcampos.config.AppConfig;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.util.Map;
 public class HealthCheckHandler {
     
   public void getHealth(Context ctx) {
-    var ds = ctx.appData(DbKeys.DATA_SOURCE);
+    var ds = ctx.appData(AppConfig.DATA_SOURCE);
     try (Connection conn = ds.getConnection(); Statement stmt = conn.createStatement()) {
       if (conn.isValid(3)) {
         stmt.execute("SELECT 1");

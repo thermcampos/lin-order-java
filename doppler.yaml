@@ -1,0 +1,4 @@
+setup:
+  project: order-ecommerce
+  config: dev
+

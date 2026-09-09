@@ -16,7 +16,14 @@ tasks:
     cmd: |
       cd javalin && \
       ./mvnw clean package -DskipTests && \
-      java -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
+      doppler run --config dev -- bash -c '
+        export ORDER_DB_URL="$DB_CONN" && \
+        export ORDER_DB_USER="$DB_USER" && \
+        export ORDER_DB_PASSWORD="$DB_PASS" && \
+        java \
+          -Dorg.slf4j.simpleLogger.log.com.thermcampos="info" \
+          -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
+      '
 
   run-native-tracing:
     desc: Buidl and run with native agent to trace reflections
@@ -30,3 +37,12 @@ tasks:
   test:
     desc: Run tests
     cmd: cd javalin && ./mvnw test
+
+  db-up:
+    desc: Starts the database using Docker
+    cmd: doppler run --config dev -- docker compose up -d
+
+  db-down:
+    desc: Stops the database using Docker
+    cmd: doppler run --config dev -- docker compose down
+

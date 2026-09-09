@@ -2,6 +2,8 @@ package com.thermcampos;
 
 import com.thermcampos.config.AppConfig;
 import com.thermcampos.config.DbConfig;
+import com.thermcampos.mapper.CustomJsonMapper;
+import com.thermcampos.config.PropertiesLoadConfig;
 import com.thermcampos.health.HealthRoutes;
 import com.thermcampos.product.ProductRoutes;
 
@@ -13,16 +15,26 @@ public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class.getName());
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         logger.info("Starting app");
 
-        var dataSource = DbConfig.create();
+        var props = new PropertiesLoadConfig("application.properties");
+        var dataSource = new DbConfig(props).create();
 
         var app = Javalin.create(config -> {
-            // Config
-            AppConfig.makeConfig(config);
-            // Db
-            DbConfig.makeConfig(config, dataSource);
+            // Configs
+            config.startup.showJavalinBanner = true;
+            
+            // JSON Mappers
+            config.jsonMapper(new CustomJsonMapper());
+            
+            // Holders
+            config.appData(AppConfig.PROPERTIES, props);
+            config.appData(AppConfig.DATA_SOURCE, dataSource);
+
+            // Events
+            config.events.serverStopping(dataSource::close); 
+            
             // Routes
             HealthRoutes.register(config);
             ProductRoutes.register(config);
@@ -33,6 +45,7 @@ public class App {
             app.stop();
         }));
 
-        app.start(8080);
+        app.start(props.getInt("order.server.port", 8080));
     }
 }
+

@@ -1,29 +1,25 @@
 package com.thermcampos.config;
 
-import com.thermcampos.db.DbKeys;
+import com.thermcampos.config.PropertiesLoadConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import io.javalin.config.JavalinConfig;
 
 public class DbConfig {
 
-  public static void makeConfig(JavalinConfig c, HikariDataSource ds) {
-    c.events.serverStopping(ds::close);
-    c.appData(DbKeys.DATA_SOURCE, ds);
-  }
+    private PropertiesLoadConfig props;
 
-  public static HikariDataSource create() {
-    var config = new HikariConfig();
-    config.setJdbcUrl(env("DB_URL", "jdbc:postgresql://localhost:5432/order"));
-    config.setUsername(env("DB_USER", "order"));
-    config.setPassword(env("DB_PASSWORD", "order"));
-    config.setMaximumPoolSize(Integer.parseInt(env("DB_MAX_POOL_SIZE", "10")));
-    config.setPoolName("linjava-pool");
-    return new HikariDataSource(config);
-  }
+    public DbConfig(PropertiesLoadConfig props) {
+        this.props = props;
+    }
 
-  private static String env(String key, String fallback) {
-    var value = System.getenv(key);
-    return (value == null || value.isBlank()) ? fallback : value;
-  }
+    public HikariDataSource create() {
+        var config = new HikariConfig();
+        config.setJdbcUrl(props.get("order.db.url", "jdbc:postgresql://localhost:5432/order"));
+        config.setUsername(props.get("order.db.user", "order"));
+        config.setPassword(props.get("order.db.password", "order"));
+        config.setMaximumPoolSize(props.getInt("order.db.max.pool.size", 10));
+        config.setPoolName(props.get("order.db.pool.name", "linjava-pool"));
+        return new HikariDataSource(config);
+    }
 }
+

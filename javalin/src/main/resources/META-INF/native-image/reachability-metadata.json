@@ -550,6 +550,9 @@
       ]
     },
     {
+      "type": "java.sql.SQLException"
+    },
+    {
       "type": "java.sql.Statement[]"
     },
     {
@@ -929,6 +932,9 @@
       "glob": "META-INF/services/org.slf4j.spi.SLF4JServiceProvider"
     },
     {
+      "glob": "application.properties"
+    },
+    {
       "glob": "jakarta/servlet/LocalStrings.properties"
     },
     {
@@ -953,6 +959,12 @@
       "glob": "org/postgresql/driverconfig.properties"
     },
     {
+      "glob": "org/postgresql/translation/messages.properties"
+    },
+    {
+      "glob": "org/postgresql/translation/messages_en.properties"
+    },
+    {
       "glob": "simplelogger.properties"
     },
     {
@@ -968,6 +980,9 @@
     },
     {
       "bundle": "jakarta.servlet.http.LocalStrings"
+    },
+    {
+      "bundle": "org.postgresql.translation.messages"
     }
   ]
 }
