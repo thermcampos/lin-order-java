@@ -6,7 +6,7 @@ import com.thermcampos.mapper.CustomJsonMapper;
 import com.thermcampos.config.PropertiesLoadConfig;
 import com.thermcampos.health.HealthRoutes;
 import com.thermcampos.product.ProductRoutes;
-
+import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,9 @@ public class App {
         logger.info("Starting app");
 
         var props = new PropertiesLoadConfig("application.properties");
-        var dataSource = new DbConfig(props).create();
+        var dbConfig = new DbConfig(props);
+        HikariDataSource dataSource = dbConfig.create();
+        dbConfig.migrateFlyway(dataSource);
 
         var app = Javalin.create(config -> {
             // Configs

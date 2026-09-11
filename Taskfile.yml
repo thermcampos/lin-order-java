@@ -9,7 +9,7 @@ tasks:
   
   build-native:
     desc: Build a binary-native image
-    cmd: cd javalin && ./mvnw -Pnative package
+    cmd: cd javalin && time ./mvnw -Pnative package
 
   run-dev:
     desc: Run the app in dev mode
@@ -22,7 +22,7 @@ tasks:
         export ORDER_DB_PASSWORD="$DB_PASS" && \
         java \
           -Dorg.slf4j.simpleLogger.log.com.thermcampos="info" \
-          -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
+          -jar target/javalin-1.0-SNAPSHOT.jar
       '
 
   run-native-tracing:
@@ -32,7 +32,11 @@ tasks:
         cd javalin && \
         ./mvnw clean package -DskipTests && \
         java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image \
-        -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
+        -jar target/javalin-1.0-SNAPSHOT.jar
+
+  run-native:
+    desc: Run the native binary
+    cmd: export ORDER_DB_MIGRATIONS_PATH="javalin/db/migration" && ./javalin/target/app-native
 
   test:
     desc: Run tests

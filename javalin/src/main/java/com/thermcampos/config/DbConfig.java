@@ -3,6 +3,7 @@ package com.thermcampos.config;
 import com.thermcampos.config.PropertiesLoadConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.flywaydb.core.Flyway;
 
 public class DbConfig {
 
@@ -20,6 +21,17 @@ public class DbConfig {
         config.setMaximumPoolSize(props.getInt("order.db.max.pool.size", 10));
         config.setPoolName(props.get("order.db.pool.name", "linjava-pool"));
         return new HikariDataSource(config);
+    }
+
+    public void migrateFlyway(HikariDataSource ds) {
+        String migrationsPath = props.get("order.db.migrations.path", "db/migration");
+        Flyway flyway = Flyway.configure()
+            .dataSource(ds)
+            .locations("filesystem:" + migrationsPath)
+            .baselineOnMigrate(true)
+            .load();
+
+        flyway.migrate();
     }
 }
 
