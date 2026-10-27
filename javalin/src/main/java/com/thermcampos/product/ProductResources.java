@@ -81,6 +81,13 @@ public class ProductResources {
         ctx.status(HttpStatus.CREATED)
             .json(product);
       } catch (Exception e) {
+        if (e instanceof RuntimeException) {
+          ctx.status(HttpStatus.BAD_REQUEST)
+              .json(Map.of(
+                  "message", "Validation failed",
+                  "error", e.getMessage()));
+          return;
+        }
         if (e instanceof IllegalArgumentException) {
           ctx.status(HttpStatus.BAD_REQUEST)
               .json(Map.of(
