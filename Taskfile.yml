@@ -36,9 +36,15 @@ tasks:
     cmds:
       - |
         ./mvnw clean package -DskipTests && \
-        java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image \
-        -jar target/javalin-1.0-SNAPSHOT.jar
-
+        doppler run --project order-ecommerce --config dev -- bash -c '
+          export ORDER_DB_URL="jdbc:postgresql://localhost:5432/$DB_NAME" && \
+          export ORDER_DB_USER="$DB_USER" && \
+          export ORDER_DB_PASSWORD="$DB_PASS" && \
+          export ORDER_DB_MAX_POOL_SIZE="$DB_MAX_POOL_SIZE" && \
+          export ORDER_DB_POOL_NAME="$DB_POOL_NAME" && \
+          java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image \
+            -jar target/javalin-1.0-SNAPSHOT.jar
+        '
   run-native:
     desc: Run the native binary
     deps: [db-up]
