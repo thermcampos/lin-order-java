@@ -42,7 +42,17 @@ tasks:
   run-native:
     desc: Run the native binary
     deps: [db-up]
-    cmd: export ORDER_DB_MIGRATIONS_PATH="javalin/db/migration" && ./javalin/target/app-native
+    dir: javalin
+    cmd: |
+      doppler run --project order-ecommerce --config dev -- bash -c '
+        export ORDER_DB_URL="jdbc:postgresql://localhost:5432/$DB_NAME" && \
+        export ORDER_DB_USER="$DB_USER" && \
+        export ORDER_DB_PASSWORD="$DB_PASS" && \
+        export ORDER_DB_MAX_POOL_SIZE="$DB_MAX_POOL_SIZE" && \
+        export ORDER_DB_POOL_NAME="$DB_POOL_NAME" && \
+        export ORDER_DB_MIGRATIONS_PATH="db/migrations" && \
+        ./target/app-native -Dorg.slf4j.simpleLogger.log.com.thermcampos="info"
+      '
 
   test:
     desc: Run tests
