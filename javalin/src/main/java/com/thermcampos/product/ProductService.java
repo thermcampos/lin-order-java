@@ -39,6 +39,8 @@ public class ProductService {
     // Validation
     Optional<ValidationException> validation = validateCreation(payload);
     if (validation.isPresent()) {
+      logger.info("Validation failed! {}: {}", validation.get().getErrorKey(),
+          validation.get().getMessage());
       throw new RuntimeException(
           validation.get().getErrorKey() + ": " +
           validation.get().getMessage());
