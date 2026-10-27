@@ -5,42 +5,49 @@ version: '3'
 tasks:
   build-jar:
     desc: Build a fat JAR ready to run
-    cmd: cd javalin && ./mvnw clean package -DskipTests
+    dir: javalin
+    cmd: ./mvnw clean package -DskipTests
   
   build-native:
     desc: Build a binary-native image
-    cmd: cd javalin && time ./mvnw -Pnative package
+    dir: javalin
+    cmd: time ./mvnw -Pnative package
 
   run-dev:
     desc: Run the app in dev mode
+    deps: [db-up]
+    dir: javalin
     cmd: |
-      cd javalin && \
       ./mvnw clean package -DskipTests && \
-      doppler run --config dev -- bash -c '
-        export ORDER_DB_URL="$DB_CONN" && \
+      doppler run --project order-ecommerce --config dev -- bash -c '
+        export ORDER_DB_URL="jdbc:postgresql://localhost:5432/$DB_NAME" && \
         export ORDER_DB_USER="$DB_USER" && \
         export ORDER_DB_PASSWORD="$DB_PASS" && \
-        java \
-          -Dorg.slf4j.simpleLogger.log.com.thermcampos="info" \
+        export ORDER_DB_MAX_POOL_SIZE="$DB_MAX_POOL_SIZE" && \
+        export ORDER_DB_POOL_NAME="$DB_POOL_NAME" && \
+        java -Dorg.slf4j.simpleLogger.log.com.thermcampos="info" \
           -jar target/javalin-1.0-SNAPSHOT.jar
       '
 
   run-native-tracing:
     desc: Buidl and run with native agent to trace reflections
+    deps: [db-up]
+    dir: javalin
     cmds:
       - |
-        cd javalin && \
         ./mvnw clean package -DskipTests && \
         java -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image \
         -jar target/javalin-1.0-SNAPSHOT.jar
 
   run-native:
     desc: Run the native binary
+    deps: [db-up]
     cmd: export ORDER_DB_MIGRATIONS_PATH="javalin/db/migration" && ./javalin/target/app-native
 
   test:
     desc: Run tests
-    cmd: cd javalin && ./mvnw test
+    dir: javalin
+    cmd: ./mvnw test
 
   db-up:
     desc: Starts the database using Docker
