@@ -50,7 +50,7 @@ tasks:
         export ORDER_DB_PASSWORD="$DB_PASS" && \
         export ORDER_DB_MAX_POOL_SIZE="$DB_MAX_POOL_SIZE" && \
         export ORDER_DB_POOL_NAME="$DB_POOL_NAME" && \
-        export ORDER_DB_MIGRATIONS_PATH="db/migrations" && \
+        export ORDER_DB_MIGRATIONS_PATH="db/migration" && \
         ./target/app-native -Dorg.slf4j.simpleLogger.log.com.thermcampos="info"
       '
 

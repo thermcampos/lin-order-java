@@ -4,23 +4,22 @@ import com.thermcampos.config.AppConfig;
 import com.thermcampos.config.DbConfig;
 import com.thermcampos.mapper.CustomJsonMapper;
 import com.thermcampos.config.PropertiesLoadConfig;
-import com.thermcampos.health.HealthRoutes;
-import com.thermcampos.product.ProductRoutes;
+import com.thermcampos.health.HealthResources;
+import com.thermcampos.logger.AppLogger;
+import com.thermcampos.product.ProductResources;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class App {
 
-    private static final Logger logger = LoggerFactory.getLogger(App.class.getName());
-
     public static void main(String[] args) {
+        var props = new PropertiesLoadConfig("application.properties");
+        var logger = new AppLogger(App.class, props);
+
         logger.info("Starting app");
 
-        var props = new PropertiesLoadConfig("application.properties");
         var dbConfig = new DbConfig(props);
-        HikariDataSource dataSource = dbConfig.create();
+        var dataSource = dbConfig.create();
         dbConfig.migrateFlyway(dataSource);
 
         var app = Javalin.create(config -> {
@@ -38,8 +37,8 @@ public class App {
             config.events.serverStopping(dataSource::close); 
             
             // Routes
-            HealthRoutes.register(config);
-            ProductRoutes.register(config);
+            HealthResources.register(config);
+            ProductResources.register(config);
         });
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
