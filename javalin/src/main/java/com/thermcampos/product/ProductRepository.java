@@ -1,6 +1,7 @@
 package com.thermcampos.product;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.Instant;
@@ -21,14 +22,30 @@ public class ProductRepository {
   public Product createProduct(ProductRequest payload) {
     String sql =
         """
-        INSERT INTO products (name, priceInCents, quantity)
-        VALUES (:name, :price, :quantity)
-        RETURNING id, name, priceInCents, quantity, createdAt
+        INSERT INTO products (name, price_in_cents, quantity)
+        VALUES (?, ?, ?)
+        RETURNING id, name, price_in_cents, quantity, created_at
         """;
 
-    // TODO: add code here
+    try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setString(1, payload.name());
+      stmt.setInt(2, payload.priceCents());
+      stmt.setInt(3, payload.quantity());
 
-    return new Product(0L, payload.name(), payload.priceCents(), payload.quantity(), null);
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (!rs.next()) {
+          throw new IllegalStateException("Insert did not return a product row");
+        }
+        Long id = rs.getLong("id");
+        String name = rs.getString("name");
+        Integer priceCents = rs.getInt("price_in_cents");
+        Integer quantity = rs.getInt("quantity");
+        Instant createdAt = rs.getObject("created_at", OffsetDateTime.class).toInstant();
+        return new Product(id, name, priceCents, quantity, createdAt);
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to insert product into the database: " + e.getMessage(), e);
+    }
   }
 
   public List<Product> findAllProducts() {
