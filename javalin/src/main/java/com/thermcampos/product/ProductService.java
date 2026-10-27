@@ -19,6 +19,15 @@ public class ProductService {
     return products;
   }
 
+  public Product findById(Context ctx, Long id) {
+    var ds = ctx.appData(AppConfig.DATA_SOURCE);
+
+    var repository = new ProductRepository(ds);
+    Product product = repository.findById(id);
+
+    return product;
+  }
+
   public Product createProduct(Context ctx, ProductRequest payload) {
     var props = ctx.appData(AppConfig.PROPERTIES);
     var logger = new AppLogger(ProductService.class, props);

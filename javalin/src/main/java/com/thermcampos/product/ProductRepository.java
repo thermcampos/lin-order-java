@@ -48,6 +48,33 @@ public class ProductRepository {
     }
   }
 
+  public Product findById(Long idParam) {
+    String sql =
+        """
+        SELECT id, name, price_in_cents, quantity, created_at
+        FROM products
+        WHERE id = ?
+        """;
+
+    try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setLong(1, idParam);
+
+      try (ResultSet rs = stmt.executeQuery()) {  
+        if (!rs.next()) {
+          return null;
+        }
+        Long id = rs.getLong("id");
+        String name = rs.getString("name");
+        Integer priceCents = rs.getInt("price_in_cents");
+        Integer quantity = rs.getInt("quantity");
+        Instant createdAt = rs.getObject("created_at", OffsetDateTime.class).toInstant();
+        return new Product(id, name, priceCents, quantity, createdAt);
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to retrieve product from the database: " + e.getMessage(), e);
+    }
+  }
+
   public List<Product> findAllProducts() {
     String sql = "SELECT id, name, price_in_cents, quantity, created_at FROM products";
 
