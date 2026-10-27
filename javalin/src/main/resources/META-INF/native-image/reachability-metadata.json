@@ -7,6 +7,92 @@
       "type": "byte[]"
     },
     {
+      "type": "ch.qos.logback.classic.encoder.JsonEncoder",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setWithArguments",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setWithContext",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setWithFormattedMessage",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setWithMessage",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setWithNanoseconds",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setWithSequenceNumber",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setWithThreadName",
+          "parameterTypes": [
+            "boolean"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.classic.spi.LogbackServiceProvider"
+    },
+    {
+      "type": "ch.qos.logback.classic.util.DefaultJoranConfigurator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.ConsoleAppender",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.OutputStreamAppender",
+      "methods": [
+        {
+          "name": "setEncoder",
+          "parameterTypes": [
+            "ch.qos.logback.core.encoder.Encoder"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.encoder.Encoder"
+    },
+    {
       "type": "char[]"
     },
     {
@@ -208,6 +294,15 @@
     },
     {
       "type": "com.sun.management.internal.VirtualThreadSchedulerImpls$VirtualThreadSchedulerImpl"
+    },
+    {
+      "type": "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "com.zaxxer.hikari.HikariConfig",
@@ -911,9 +1006,6 @@
       "type": "org.slf4j.impl.StaticLoggerBinder"
     },
     {
-      "type": "org.slf4j.simple.SimpleServiceProvider"
-    },
-    {
       "type": "org.slf4j.spi.SLF4JServiceProvider"
     },
     {
@@ -1082,6 +1174,9 @@
       "glob": "META-INF/maven/io.javalin/javalin/pom.properties"
     },
     {
+      "glob": "META-INF/services/ch.qos.logback.classic.spi.Configurator"
+    },
+    {
       "glob": "META-INF/services/java.net.spi.InetAddressResolverProvider"
     },
     {
@@ -1100,6 +1195,9 @@
       "glob": "META-INF/services/java.util.spi.ResourceBundleControlProvider"
     },
     {
+      "glob": "META-INF/services/javax.xml.parsers.SAXParserFactory"
+    },
+    {
       "glob": "META-INF/services/org.eclipse.jetty.http.HttpFieldPreEncoder"
     },
     {
@@ -1113,6 +1211,12 @@
     },
     {
       "glob": "application.properties"
+    },
+    {
+      "glob": "ch/qos/logback/classic/logback-classic-version.properties"
+    },
+    {
+      "glob": "ch/qos/logback/core/logback-core-version.properties"
     },
     {
       "glob": "db/callback"
@@ -1136,6 +1240,12 @@
       "glob": "jakarta/servlet/http/LocalStrings_en_US.properties"
     },
     {
+      "glob": "logback-test.xml"
+    },
+    {
+      "glob": "logback.xml"
+    },
+    {
       "glob": "org/eclipse/jetty/http/encoding.properties"
     },
     {
@@ -1149,9 +1259,6 @@
     },
     {
       "glob": "org/postgresql/driverconfig.properties"
-    },
-    {
-      "glob": "simplelogger.properties"
     },
     {
       "module": "java.base",

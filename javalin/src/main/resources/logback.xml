@@ -1,0 +1,21 @@
+<configuration>
+
+  <!-- One JSON object per line. MDC carries the requestId set in web/RequestLogging. -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="ch.qos.logback.classic.encoder.JsonEncoder">
+      <withSequenceNumber>false</withSequenceNumber>
+      <withNanoseconds>false</withNanoseconds>
+      <withContext>false</withContext>
+      <withThreadName>false</withThreadName>
+      <withMessage>false</withMessage>
+      <withArguments>false</withArguments>
+      <withFormattedMessage>true</withFormattedMessage>
+    </encoder>
+  </appender>
+
+  <logger name="com.thermcampos" level="INFO"/>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
