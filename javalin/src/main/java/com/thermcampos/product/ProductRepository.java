@@ -18,6 +18,19 @@ public class ProductRepository {
     this.ds = ds;
   }
 
+  public Product createProduct(ProductRequest payload) {
+    String sql =
+        """
+        INSERT INTO products (name, priceInCents, quantity)
+        VALUES (:name, :price, :quantity)
+        RETURNING id, name, priceInCents, quantity, createdAt
+        """;
+
+    // TODO: add code here
+
+    return new Product(0L, payload.name(), payload.priceCents(), payload.quantity(), null);
+  }
+
   public List<Product> findAllProducts() {
     String sql = "SELECT id, name, price_in_cents, quantity, created_at FROM products";
 
