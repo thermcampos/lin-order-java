@@ -54,6 +54,20 @@ tasks:
         ./target/app-native -Dorg.slf4j.simpleLogger.log.com.thermcampos="info"
       '
 
+  run-jar:
+    desc: Run the jar app with JVM
+    deps: [db-up]
+    dir: javalin
+    cmd: |
+      doppler run --project order-ecommerce --config dev -- bash -c '
+        export ORDER_DB_URL="jdbc:postgresql://localhost:5432/$DB_NAME" && \
+        export ORDER_DB_USER="$DB_USER" && \
+        export ORDER_DB_PASSWORD="$DB_PASS" && \
+        export ORDER_DB_MAX_POOL_SIZE="$DB_MAX_POOL_SIZE" && \
+        export ORDER_DB_POOL_NAME="$DB_POOL_NAME" && \
+        java -Dorg.slf4j.simpleLogger.log.com.thermcampos="info" \
+          -jar target/javalin-1.0-SNAPSHOT.jar
+      '
   test:
     desc: Run tests
     dir: javalin
