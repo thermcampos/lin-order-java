@@ -1118,25 +1118,22 @@
       "glob": "db/callback"
     },
     {
-      "glob": "db/migration"
-    },
-    {
-      "glob": "db/migration/V1__create_products.sql"
-    },
-    {
-      "glob": "db/migration/V2__create_orders.sql"
-    },
-    {
       "glob": "jakarta/servlet/LocalStrings.properties"
     },
     {
       "glob": "jakarta/servlet/LocalStrings_en.properties"
     },
     {
+      "glob": "jakarta/servlet/LocalStrings_en_US.properties"
+    },
+    {
       "glob": "jakarta/servlet/http/LocalStrings.properties"
     },
     {
       "glob": "jakarta/servlet/http/LocalStrings_en.properties"
+    },
+    {
+      "glob": "jakarta/servlet/http/LocalStrings_en_US.properties"
     },
     {
       "glob": "org/eclipse/jetty/http/encoding.properties"
