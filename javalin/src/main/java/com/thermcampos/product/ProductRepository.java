@@ -48,6 +48,50 @@ public class ProductRepository {
     }
   }
 
+  public Product updateProduct(Product product) {
+    String sql =
+        """
+        UPDATE products
+        SET name = ?
+          ,price_in_cents = ?
+          ,quantity = ?
+        WHERE id = ?
+        RETURNING id, name, price_in_cents, quantity, created_at
+        """;
+
+    try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setString(1, product.getName());
+      stmt.setInt(2, product.getPriceCents());
+      stmt.setInt(3, product.getQuantity());
+      stmt.setLong(4, product.getId());
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (!rs.next()) {
+          throw new IllegalStateException("Update did not return a product row");
+        }
+        Long id = rs.getLong("id");
+        String name = rs.getString("name");
+        Integer priceCents = rs.getInt("price_in_cents");
+        Integer quantity = rs.getInt("quantity");
+        Instant createdAt = rs.getObject("created_at", OffsetDateTime.class).toInstant();
+        return new Product(id, name, priceCents, quantity, createdAt);
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to insert product into the database: " + e.getMessage(), e);
+    }
+  }
+
+  public int deleteProduct(Long id) {
+    String sql = "DELETE FROM products WHERE id = ?";
+
+    try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setLong(1, id);
+      return stmt.executeUpdate();
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to delete product from the database:  " + e.getMessage(), e);
+    }
+  }
+
   public Product findById(Long idParam) {
     String sql =
         """

@@ -42,4 +42,4 @@ Always run `./mvnw test` after making changes.
 
 - Match the existing code style (4-space indent, handler-per-concern).
 - Handlers should be thin; put logic in plain Java classes that are easy to unit test.
-- The server runs on port **8080** by default.
+- The server runs on port **7070** by default.

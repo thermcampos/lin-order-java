@@ -55,6 +55,6 @@ public class App {
       app.stop();
     }));
 
-    app.start(props.getInt("order.server.port", 8080));
+    app.start(props.getInt("order.server.port", 7070));
   }
 }

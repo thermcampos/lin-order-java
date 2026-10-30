@@ -1,5 +1,6 @@
 package com.thermcampos.product;
 
+import com.thermcampos.validation.NotFoundException;
 import com.thermcampos.validation.ValidationException;
 import com.thermcampos.validation.ValidationUtil;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ProductService {
     Product product = repository.findById(id);
     if (product == null) {
       log.info("Product not found for id: {}", id);
+      throw new NotFoundException("product", "Product not found for id: " + id);
     }
 
     return product;
@@ -42,6 +44,80 @@ public class ProductService {
     log.info("Product created. New ID: {}", productCreated.getId());
 
     return productCreated;
+  }
+
+  public Product patchProduct(Long id, ProductRequest payload) {
+    // Throws ValidationException, mapped to 400 in web/ErrorHandlers
+    validatePatch(payload);
+
+    var product = repository.findById(id);
+    if (product == null) {
+      log.info("Product not found for id: {}", id);
+      throw new NotFoundException("product", "Product not found for id: " + id);
+    }
+
+    // name
+    String nameToSave = product.getName();
+    if (payload.name() != null) {
+      nameToSave = payload.name();
+    }
+
+    // price cents
+    Integer priceToSave = product.getPriceCents();
+    if (payload.priceCents() != null) {
+      priceToSave = payload.priceCents();
+    }
+
+    // quantity
+    Integer quantityToSave = product.getQuantity();
+    if (payload.quantity() != null) {
+      quantityToSave = payload.quantity();
+    }
+
+    var productToPatch = new Product(
+        id,
+        nameToSave,
+        priceToSave,
+        quantityToSave,
+        null
+    );
+
+    var productPatched = repository.updateProduct(productToPatch);
+    log.info("Product patched, id: {}", productPatched.getId());
+
+    return productPatched;
+  }
+
+  public void deleteProduct(Long id) {
+    var product = repository.findById(id);
+    if (product == null) {
+      log.info("Product not found for id: {}", id);
+      throw new NotFoundException("product", "Product not found for id: " + id);
+    }
+
+    int rows = repository.deleteProduct(id);
+    log.info("{} rows deleted for product id: {}", rows, id);
+  }
+
+  private void validatePatch(ProductRequest payload) {
+    if (payload == null) {
+      throw new ValidationException("body", "must not be empty");
+    }
+
+    // name - max size
+    if (payload.name() != null) {
+      ValidationUtil.maxSize("name", payload.name(), ValidationUtil.NAME_MAX_SIZE);
+    }
+
+    // price cents - negative
+    if (payload.priceCents() != null) {
+      ValidationUtil.notNegative("priceCents", payload.priceCents());
+    }
+
+    // quantity - negative
+    if (payload.quantity() != null) {
+      ValidationUtil.notNegative("quantity", payload.quantity());
+    }
   }
 
   private void validateCreation(ProductRequest payload) {

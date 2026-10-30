@@ -1,5 +1,6 @@
 package com.thermcampos.web;
 
+import com.thermcampos.validation.NotFoundException;
 import com.thermcampos.validation.ValidationException;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
@@ -19,6 +20,14 @@ public class ErrorHandlers {
       log.warn("Validation failed: {}", error);
       ctx.status(HttpStatus.BAD_REQUEST)
           .json(Map.of("message", "Validation failed", "error", error));
+    });
+
+    // Not found entities (findByid)
+    c.routes.exception(NotFoundException.class, (e, ctx) -> {
+      String error = e.getEntity() + " was not found in the database: " + e.getMessage();
+      log.warn("Entity not found: {}", error);
+      ctx.status(HttpStatus.NOT_FOUND)
+          .json(Map.of("message", "Entity not found", "error", error));
     });
 
     // Javalin's validation (e.g. ctx.pathParamAsClass(...).check(...)) - different class, same name

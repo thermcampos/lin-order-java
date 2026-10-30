@@ -27,7 +27,7 @@ Deliberately **not** used: ORMs (Hibernate/JPA), DI frameworks (Spring/Guice), o
 java -jar target/javalin-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-The server starts on **port 8080**.
+The server starts on **port 7070**.
 
 ## Endpoints
 
