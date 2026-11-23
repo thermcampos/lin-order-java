@@ -43,3 +43,13 @@ Always run `./mvnw test` after making changes.
 - Match the existing code style (4-space indent, handler-per-concern).
 - Handlers should be thin; put logic in plain Java classes that are easy to unit test.
 - The server runs on port **7070** by default.
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked as GitHub issues in this repo, managed via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context layout: `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
